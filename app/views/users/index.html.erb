@@ -1,0 +1,15 @@
+<h1>USER INDEX</h1>
+
+User: <%= current_user.email %>
+
+<div class="p-5">
+  <h1>Suggestions for you</h1>
+
+  <% @follower_suggestions.each do |user| %>
+    <div class="table">
+      <%= user.email %>
+      <%= user.created_at > 2.days.ago ? "New to Instagram" : "Followed by X users" %>
+      <%= link_to "Profile", user_path(user) %>
+    </div>
+  <% end %>
+</div>
