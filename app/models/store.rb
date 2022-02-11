@@ -3,4 +3,8 @@ class Store < ApplicationRecord
 
   has_many :follows
   has_many :users, through: :follows
+
+  def to_s
+    email
+  end
 end

@@ -9,10 +9,32 @@
 <%= link_to 'Back', stores_path %>
 
 <div class="container">
-  <%# if signed_in? %>
-  <% if current_user.stores.include?(@store) %>
+  <h3>Follow functionality</h3>
+
+  <% if current_user.stores.include?(@store) && user_signed_in? %>
       <h5><%= button_to "Unfollow", unfollow_store_path, method: :post %></h5>
   <% else %>
       <h5><%= button_to "Follow #{@store.name}", follow_store_path, method: :post %></h5>
   <% end %>
 </div> 
+
+<hr>
+
+<h1>Followers of the store</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @followers.each do |follower| %>
+      <tr>
+        <td><%= follower.user_id %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

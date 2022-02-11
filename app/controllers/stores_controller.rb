@@ -18,6 +18,7 @@ class StoresController < ApplicationController
 
   # GET /stores/1 or /stores/1.json
   def show
+    @followers = @store.follows
   end
 
   # GET /stores/new

@@ -6,4 +6,8 @@ class User < ApplicationRecord
 
   has_many :follows
   has_many :stores, through: :follows
+
+  def to_s
+    email
+  end
 end
