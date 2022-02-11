@@ -7,4 +7,8 @@ class Store < ApplicationRecord
   def to_s
     email
   end
+
+  def total_following_store
+    Follow.where(store_id: self.id).count
+  end
 end

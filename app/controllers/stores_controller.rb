@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  before_action :set_store, only: %i[ show edit update destroy follow unfollow]
+  before_action :set_store, only: %i[ show edit update destroy follow unfollow store_follow]
 
   def follow
     current_user.stores << @store
@@ -11,9 +11,25 @@ class StoresController < ApplicationController
     redirect_to store_path(@store)  
   end
 
+  def store_follow
+    user_id = params[:follow_id]
+
+    if Follow.create!(user_id: user_id, store_id: @store.id)
+      flash[:success] = 'Now following store'
+    else
+      flash[:success] = 'Not able to add store'
+    end
+  end
+
   # GET /stores or /stores.json
   def index
     @stores = Store.all
+
+    store_ids = Follow.where(user_id: current_user.id).map(&:store_id)
+    store_ids << current_user.id
+
+    # @follower_suggestions = Store.where.not(id: store_ids)
+    @follower_suggestions = Store.all
   end
 
   # GET /stores/1 or /stores/1.json

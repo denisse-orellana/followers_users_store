@@ -28,3 +28,24 @@
 
 <hr>
 
+<h1>Index Stores</h1>
+
+User: <%= current_user.email %>
+
+<div class="p-5">
+  <h1>Suggestions for you</h1>
+
+  <% @follower_suggestions.each do |store| %>
+    <div class="table">
+      <%= store.name %>
+      <%= store.created_at > 2.days.ago ? "New to Green Food" : "X followers" %>
+      <%= link_to "Profile", store_path(store) %>
+
+      <%= form_tag store_follow_path, method: :post, class: "" do %>
+        <%= hidden_field_tag :follow_id, current_user.id %>
+        <%= submit_tag "Follow store #{store.name}", class: "btn btn-primary" %>
+      <% end  %>
+
+    </div>
+  <% end  %>
+</div>

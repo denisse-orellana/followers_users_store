@@ -10,4 +10,8 @@ class User < ApplicationRecord
   def to_s
     email
   end
+
+  def total_followers_users
+    Follow.where(user_id: self.id).count
+  end
 end
