@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @store.name %>
+</p>
+
+<%= link_to 'Edit', edit_store_path(@store) %> |
+<%= link_to 'Back', stores_path %>
+
+<div class="container">
+  <%# if signed_in? %>
+  <% if current_user.stores.include?(@store) %>
+      <h5><%= button_to "Unfollow", unfollow_store_path, method: :post %></h5>
+  <% else %>
+      <h5><%= button_to "Follow #{@store.name}", follow_store_path, method: :post %></h5>
+  <% end %>
+</div> 

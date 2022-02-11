@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'stores/index'
+  get 'stores/show'
   get 'user/index'
   get 'user/show'
   devise_for :partners
@@ -6,5 +8,8 @@ Rails.application.routes.draw do
   get 'home/index'
   root "home#index"
   resources :users
+  resources :stores
+  post '/stores/:id/follow', to: "stores#follow", as: "follow_store"
+  post '/stores/:id/unfollow', to: "stores#unfollow", as: "unfollow_store"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
