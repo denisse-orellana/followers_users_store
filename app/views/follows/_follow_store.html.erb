@@ -1,0 +1,7 @@
+<div id="follow-<% store.id %>">
+  <% if current_user.stores.include?(store) %>
+    <%= render 'follows/unfollow' %>
+  <% else %>
+    <%= render 'follows/follow' %>
+  <% end %>
+</div>

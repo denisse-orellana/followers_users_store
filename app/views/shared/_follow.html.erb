@@ -1,0 +1,8 @@
+
+
+ruby:views/relationships/_follow_button.html.slim
+
+= button_to 'Follow', relationships_path(follower: user), remote: true
+ruby:views/relationships/_unfollow_button.html.slim
+
+= button_to 'Unfollow', relationship_path(current_user.relationships.find_by(follower: user)), method: :delete, remote: true

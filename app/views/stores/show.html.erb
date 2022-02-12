@@ -2,21 +2,25 @@
 
 <p>
   <strong>Name:</strong>
+  <%= @store.id %>
   <%= @store.name %>
 </p>
 
 <%= link_to 'Edit', edit_store_path(@store) %> |
 <%= link_to 'Back', stores_path %>
 
-<div class="container">
-  <h3>Follow functionality</h3>
+<hr>
 
-  <% if current_user.stores.include?(@store) && user_signed_in? %>
-      <h5><%= button_to "Unfollow", unfollow_store_path, method: :post %></h5>
-  <% else %>
-      <h5><%= button_to "Follow #{@store.name}", follow_store_path, method: :post %></h5>
-  <% end %>
-</div> 
+<h1>Follow or Unfollow store</h1>
+
+<% if user_signed_in? %>
+
+  <div id="follow">
+    <%= render 'follows/follow_store', store: @store %>
+  </div>
+
+<% end %>
+
 
 <hr>
 

@@ -15,3 +15,8 @@ class User < ApplicationRecord
     Follow.where(user_id: self.id).count
   end
 end
+
+
+
+
+
