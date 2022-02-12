@@ -12,9 +12,9 @@ class Store < ApplicationRecord
     Follow.where(store_id: self.id).count
   end
 
-  def followers
-    self.followers
-  end
+  # def followers
+  #   self.followers
+  # end
 
 
 end
