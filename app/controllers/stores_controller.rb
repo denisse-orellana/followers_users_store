@@ -7,7 +7,7 @@ class StoresController < ApplicationController
   end
   
   def unfollow
-    current_user.follows.find_by(store_id: @store.id).destroy
+    current_user.stores.find_by(store_id: @store.id).destroy
     redirect_to store_path(@store)  
   end
 
@@ -30,6 +30,9 @@ class StoresController < ApplicationController
 
     # @follower_suggestions = Store.where.not(id: store_ids)
     @follower_suggestions = Store.all
+
+    @store = Store.find_by(params[:id])
+
   end
 
   # GET /stores/1 or /stores/1.json

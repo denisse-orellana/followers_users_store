@@ -49,3 +49,14 @@ User: <%= current_user.email %>
     </div>
   <% end  %>
 </div>
+
+
+<h1>Follow or Unfollow store</h1>
+
+<% if user_signed_in? %>
+
+  <div id="follow">
+    <%= render 'follows/follow_store', store: @store %>
+  </div>
+
+<% end %>
