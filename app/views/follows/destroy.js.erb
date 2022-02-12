@@ -1,1 +1,3 @@
-$("#follow-<% @store.id %>").html("<%= j(render 'follows/follow') %>")
+$("#follow-<%= @store.id %>").html("<%= j(render 'follows/follow_store') %>")
+$("#store-<%= @store.id %>").html("<%= j(render 'follows/followers') %>")
+

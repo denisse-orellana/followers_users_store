@@ -11,4 +11,10 @@ class Store < ApplicationRecord
   def total_following_store
     Follow.where(store_id: self.id).count
   end
+
+  def followers
+    self.followers
+  end
+
+
 end

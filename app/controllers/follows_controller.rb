@@ -10,8 +10,8 @@ class FollowsController < ApplicationController
   end
 
   def destroy
-    @store = current_user.follows.find_by(params[:store_id])
-    @store.destroy
+    @follow = current_user.follows.find_by(params[:store_id])
+    @follow.destroy
     respond_to do |format|
       format.js { render nothing: false }
       flash.now[:notice] = "Has dejado de seguir la tienda"

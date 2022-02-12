@@ -49,9 +49,9 @@
 
 <%= @store.name %>
 
-<div class="row">
-  <div class="col-4">
-    <h5>Usuarios que siguen la tienda</h5>
-    <div><%= @store.total_following_store %> followers</div>
+<div>
+  <h5>Usuarios que siguen la tienda</h5>
+  <div id="followers">
+    <%= render 'follows/followers', store: @store %>
   </div>
-</div>  
+</div>
