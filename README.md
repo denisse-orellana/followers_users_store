@@ -2,7 +2,7 @@
 ## How an User can follow a Store
 
 <img src="./assets/images/store.png" width="30" height="30">
-
+<p align="left"><img width="100%" src="/assets/images/store.png"></p>
 ### Setup
 
 * ✅  Ruby 2.6.3
