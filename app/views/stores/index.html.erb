@@ -54,17 +54,16 @@ User: <%= current_user.email %>
 <h1>Follow or Unfollow store</h1>
 
 <% if user_signed_in? %>
-
   <div id="follow">
     <%= render 'follows/follow_store', store: @store %>
   </div>
-
 <% end %>
 
 <hr>
 
 <!-- From the controller stores -->
 <h1>Followers of <%= "#{@store.name}" %></h1>
+<h2>From the controller stores</h2>
 
 <% @followers.each do |user| %>
   <%= user.id %>
@@ -73,6 +72,7 @@ User: <%= current_user.email %>
 
 <!-- From the model stores -->
 <h1>Followers of <%= "#{@store.name}" %></h1>
+<h2>From the model store</h2>
 
 <% @store.followers.each do |user| %>
   <%= user.id %>
