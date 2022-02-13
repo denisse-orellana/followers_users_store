@@ -1,7 +1,5 @@
-# Followers Async
-## How an User can follow a Store
-
-<p align="center"><img width="30" height="30" src="/assets/images/store.png"></p>
+# Followers Async 👩‍💻 
+## How an User can follow a Store 
 
 ### Setup
 
