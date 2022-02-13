@@ -60,3 +60,21 @@ User: <%= current_user.email %>
   </div>
 
 <% end %>
+
+<hr>
+
+<!-- From the controller stores -->
+<h1>Followers of <%= "#{@store.name}" %></h1>
+
+<% @followers.each do |user| %>
+  <%= user.id %>
+  <%= user.email %>
+<% end %>
+
+<!-- From the model stores -->
+<h1>Followers of <%= "#{@store.name}" %></h1>
+
+<% @store.followers.each do |user| %>
+  <%= user.id %>
+  <%= user.email %>
+<% end %>

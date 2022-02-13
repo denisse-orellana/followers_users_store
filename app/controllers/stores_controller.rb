@@ -33,6 +33,8 @@ class StoresController < ApplicationController
 
     @store = Store.find_by(params[:id])
 
+    # Followers
+    @followers = @store.users
   end
 
   # GET /stores/1 or /stores/1.json

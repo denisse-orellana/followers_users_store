@@ -2,7 +2,7 @@ class Store < ApplicationRecord
   belongs_to :partner
 
   has_many :follows
-  has_many :users, through: :follows
+  has_many :users, through: :follows, dependent: :destroy
 
   def to_s
     email
@@ -12,9 +12,9 @@ class Store < ApplicationRecord
     Follow.where(store_id: self.id).count
   end
 
-  # def followers
-  #   self.followers
-  # end
+  def followers
+    users
+  end
 
 
 end

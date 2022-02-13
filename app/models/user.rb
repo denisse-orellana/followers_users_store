@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :follows
-  has_many :stores, through: :follows
+  has_many :stores, through: :follows, dependent: :destroy
 
   def to_s
     email
