@@ -1,6 +1,8 @@
 # Followers Async
 ## How an User can follow a Store
 
+<img src="./assets/images/store.png" width="30" height="30">
+
 ### Setup
 
 * ✅  Ruby 2.6.3
@@ -31,6 +33,8 @@ end
 ```
 
 ```ruby
+# store.rb
+
 class Store < ApplicationRecord
   has_many :follows
   has_many :users, through: :follows, dependent: :destroy
@@ -38,6 +42,8 @@ end
 ```
 
 ```ruby
+# user.rb
+
 class User < ApplicationRecord
   has_many :follows
   has_many :stores, through: :follows, dependent: :destroy
