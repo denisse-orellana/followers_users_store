@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  before_action :set_store, only: %i[ show edit update destroy follow unfollow store_follow]
+  before_action :set_store, only: %i[ show edit update destroy follow unfollow store_unfollow store_follow]
 
   def follow
     current_user.stores << @store
@@ -13,11 +13,24 @@ class StoresController < ApplicationController
 
   def store_follow
     user_id = params[:follow_id]
+    store_id = params[:follow_store_id]
 
-    if Follow.create!(user_id: user_id, store_id: @store.id)
+    # @store = Store.find(params[:id])
+    if Follow.create!(user_id: user_id, store_id: store_id)
       flash[:success] = 'Now following store'
     else
       flash[:success] = 'Not able to add store'
+    end
+
+    respond_to do |format|
+      format.js { render nothing: false }
+    end
+  end
+
+  def store_unfollow
+    current_user.follows.find_by(store_id: @store.id).destroy
+    respond_to do |format|
+      format.js { render nothing: false }
     end
   end
 

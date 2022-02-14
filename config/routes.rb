@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   # post '/stores/:id/follow', to: "stores#follow", as: "follow_store"
   # post '/stores/:id/unfollow', to: "stores#unfollow", as: "unfollow_store"
 
-  post '/follow/store', to: 'stores#store_follow', as: "store_follow"
+  post '/follow/:id/store', to: 'stores#store_follow', as: "store_follow"
+  delete '/unfollow/:id/store', to: 'stores#store_unfollow', as: "store_unfollow"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

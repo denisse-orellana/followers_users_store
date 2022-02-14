@@ -1,5 +1,5 @@
 class Store < ApplicationRecord
-  belongs_to :partner
+  # belongs_to :partner
 
   has_many :follows
   has_many :users, through: :follows, dependent: :destroy
