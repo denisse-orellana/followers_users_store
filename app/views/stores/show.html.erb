@@ -49,9 +49,15 @@
 
 <h1>Store: <%= @store.name %></h1>
 
+<% if user_signed_in? %>
+  <div id="">
+    <%= render 'stores/follow_store', store: @store %>
+  </div>
+<% end %>
+
 <div>
   <h5>Usuarios que siguen la tienda</h5>
   <div id="followers">
-    <%= render 'follows/followers', store: @store %>
+    <%= render 'followers', store: @store %>
   </div>
 </div>
