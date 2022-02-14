@@ -1,6 +1,6 @@
 <div id="follow-<%= store.id %>">
   <% if current_user.stores.include?(store) %>
-    <%= link_to 'Unfollow', store_unfollow_path(store), method: :delete, remote: true %>
+    <%= link_to "Unfollow store #{store.name}", store_unfollow_path(store), method: :delete, remote: true, class: "btn btn-primary" %>
   <% else %>
     <%= form_tag(store_follow_path(store), remote: true) do %>
       <%= hidden_field_tag :follow_id, current_user.id %>
