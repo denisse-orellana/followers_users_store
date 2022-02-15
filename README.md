@@ -12,6 +12,11 @@
 
 First add devise for User
 
+```console
+bundle add gem 'devise'
+rails generate devise:install
+```
+
 ## 1. Models
 
 ```console
@@ -62,24 +67,29 @@ rails g controller Follow create destroy
 ```
 
 ```ruby
-# follows_controller.rb
+# stores_controller.rb
 
-class FollowsController < ApplicationController
-  def create
-    @store = Store.find_by(params[:store_id])
-    current_user.stores << @store
-    respond_to do |format|
-      format.js { render nothing: false }
-    end
+before_action :set_store, only: %i[ store_unfollow store_follow]
+
+def store_follow
+  user_id = params[:follow_id]
+  store_id = params[:follow_store_id]
+
+  if Follow.create!(user_id: user_id, store_id: store_id)
+    flash[:success] = 'Now following store'
+  else
+    flash[:success] = 'Not able to follow store'
   end
 
-  def destroy
-    @store = Store.find_by(params[:store_id])
-    @follow = current_user.follows.find_by(params[:store_id])
-    @follow.destroy
-    respond_to do |format|
-      format.js { render nothing: false }
-    end
+  respond_to do |format|
+    format.js { render nothing: false }
+  end
+end
+
+def store_unfollow
+  current_user.follows.find_by(store_id: @store.id).destroy
+  respond_to do |format|
+    format.js { render nothing: false }
   end
 end
 ```
@@ -87,37 +97,59 @@ end
 ## 3. Views
 
 ```ruby
-# follows/_follow_store.html.erb
+# stores/_follow_store.html.erb
 
-<div id="follow-<%= @store.id %>">
-  <% if current_user.stores.include?(@store) %>
-    <%= link_to 'Unfollow', unfollow_path(@store), method: :delete, remote: true, class: 'btn btn-outline-success' %>
+<div id="follow-<%= store.id %>">
+  <% if current_user.stores.include?(store) %>
+    <%= link_to "Unfollow store #{store.name}", store_unfollow_path(store), method: :delete, remote: true, class: "btn btn-primary" %>
   <% else %>
-    <%= link_to 'Follow', follow_path(@store), method: :post, remote: true, class: 'btn btn-outline-success' %>
+    <%= form_tag(store_follow_path(store), remote: true) do %>
+      <%= hidden_field_tag :follow_id, current_user.id %>
+      <%= hidden_field_tag :follow_store_id, store.id %>
+      <%= submit_tag "Follow store #{store.name}", class: "btn btn-primary" %>
+    <% end  %>
   <% end %>
 </div>
 ```
 
 ```ruby
-# follows/_followers.html.erb
+# stores/_followers.html.erb
 
 <div id="store-<%= @store.id %>">
   <h4><%= @store.users.count %> followers</h4>
 </div>
 ```
 
-```javascript
-// follows/create.js.erb
+#### Follow store with Jquery or Vanilla js
 
-$("#follow-<%= @store.id %>").html("<%= j(render 'follows/follow_store') %>")
-$("#store-<%= @store.id %>").html("<%= j(render 'follows/followers') %>")
+```javascript
+// stores/store_follow.js.erb
+
+// Jquery
+$("#follow-<%= @store.id %>").html("<%= j(render 'stores/follow_store', store: @store ) %>")
+$("#followers-<%= @store.id %>").html("<%= j(render 'stores/followers', store: @store ) %>")
+
+// Or use Vanilla Js
+var follow = document.querySelector("#follow-<%= @store.id %>");
+var followers = document.querySelector("#followers-<%= @store.id %>");
+
+follow.innerHTML = "<%= j(render 'stores/follow_store', store: @store ) %>"
+followers.innerHTML = "<%= j(render 'stores/followers', store: @store ) %>" 
 ```
 
 ```javascript
-// follows/destroy.js.erb
+// follows/store_unfollow.js.erb
 
-$("#follow-<%= @store.id %>").html("<%= j(render 'follows/follow_store') %>")
-$("#store-<%= @store.id %>").html("<%= j(render 'follows/followers') %>")
+// Jquery
+$("#follow-<%= @store.id %>").html("<%= j(render 'stores/follow_store', store: @store ) %>")
+$("#followers-<%= @store.id %>").html("<%= j(render 'stores/followers', store: @store ) %>")
+
+// Or use Vanilla Js
+var follow = document.querySelector("#follow-<%= @store.id %>");
+var followers = document.querySelector("#followers-<%= @store.id %>");
+
+follow.innerHTML = "<%= j(render 'stores/follow_store', store: @store ) %>"
+followers.innerHTML = "<%= j(render 'stores/followers', store: @store ) %>" 
 ```
 
 #### Index view
@@ -127,7 +159,7 @@ $("#store-<%= @store.id %>").html("<%= j(render 'follows/followers') %>")
 
 <% if user_signed_in? %>
   <div id="follow">
-    <%= render 'follows/follow_store', store: @store %>
+    <%= render 'follow_store', store: @store %>
   </div>
 <% end %>
 
@@ -140,22 +172,22 @@ $("#store-<%= @store.id %>").html("<%= j(render 'follows/followers') %>")
 
 <% if user_signed_in? %>
   <div id="follow">
-    <%= render 'follows/follow_store', store: @store %>
+    <%= render 'follow_store', store: @store %>
   </div>
 <% end %>
 
 <div>
   <div id="followers">
-    <%= render 'follows/followers', store: @store %>
+    <%= render 'followers', store: @store %>
   </div>
 </div>
 ```
 
 ## 4. Routes
 
-``` ruby
-scope '/follows/' do
-  post '/:id', to: 'follows#create', as: 'follow'
-  delete '/:id', to: 'follows#destroy', as: 'unfollow'
-end
+```ruby
+# routes.rb
+
+post '/follow/:id/store', to: 'stores#store_follow', as: "store_follow"
+delete '/unfollow/:id/store', to: 'stores#store_unfollow', as: "store_unfollow"
 ```

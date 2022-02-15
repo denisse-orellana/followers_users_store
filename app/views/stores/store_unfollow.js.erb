@@ -1,2 +1,12 @@
-$("#follow-<%= @store.id %>").html("<%= j(render 'stores/follow_store', store: @store ) %>")
-$("#followers-<%= @store.id %>").html("<%= j(render 'stores/followers', store: @store ) %>")
+// JQuery
+// $("#follow-<%= @store.id %>").html("<%= j(render 'stores/follow_store', store: @store ) %>")
+// $("#followers-<%= @store.id %>").html("<%= j(render 'stores/followers', store: @store ) %>")
+
+
+// Vanilla Js
+var follow = document.querySelector("#follow-<%= @store.id %>");
+var followers = document.querySelector("#followers-<%= @store.id %>");
+
+follow.innerHTML = "<%= j(render 'stores/follow_store', store: @store ) %>"
+followers.innerHTML = "<%= j(render 'stores/followers', store: @store ) %>" 
+

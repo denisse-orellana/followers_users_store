@@ -39,13 +39,16 @@ User: <%= current_user.email %>
     <div class="table">
       <%= store.id %>
       <%= store.name %>
-      <%= store.users.count %> seguidores
+      <%# store.users.count %> seguidores
       <%= store.created_at > 2.days.ago ? "New to Green Food" : "X followers" %>
       <%= link_to "Profile", store_path(store) %>
 
       <!-- FOLLOW BUTTON -->
       <div>
         <%= render 'follow_store', store: store %>
+      </div>
+      <div>
+        <%= render 'followers', store: store %>
       </div>
 
     </div>
