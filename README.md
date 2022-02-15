@@ -1,6 +1,9 @@
 # Followers Async 👩‍💻 
 ## How an User can follow a Store 
 
+![Rails](https://img.shields.io/badge/rails-%23CC0000.svg?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+
 ### Setup
 
 * ✅  Ruby 2.6.3
@@ -63,7 +66,7 @@ User.last.stores
 ## 2. Controllers
 
 ```console
-rails g controller Follow create destroy
+rails g controller Stores
 ```
 
 ```ruby
@@ -133,8 +136,8 @@ $("#followers-<%= @store.id %>").html("<%= j(render 'stores/followers', store: @
 var follow = document.querySelector("#follow-<%= @store.id %>");
 var followers = document.querySelector("#followers-<%= @store.id %>");
 
-follow.innerHTML = "<%= j(render 'stores/follow_store', store: @store ) %>"
-followers.innerHTML = "<%= j(render 'stores/followers', store: @store ) %>" 
+follow.innerHTML = "<%= j(render 'stores/follow_store', store: @store ) %>";
+followers.innerHTML = "<%= j(render 'stores/followers', store: @store ) %>";
 ```
 
 ```javascript
@@ -148,8 +151,8 @@ $("#followers-<%= @store.id %>").html("<%= j(render 'stores/followers', store: @
 var follow = document.querySelector("#follow-<%= @store.id %>");
 var followers = document.querySelector("#followers-<%= @store.id %>");
 
-follow.innerHTML = "<%= j(render 'stores/follow_store', store: @store ) %>"
-followers.innerHTML = "<%= j(render 'stores/followers', store: @store ) %>" 
+follow.innerHTML = "<%= j(render 'stores/follow_store', store: @store ) %>";
+followers.innerHTML = "<%= j(render 'stores/followers', store: @store ) %>";
 ```
 
 #### Index view
